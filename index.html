@@ -1967,7 +1967,7 @@ int main() {
               aria-expanded="false"
               aria-controls="collapseNinth"
             >
-              MDT and mecro output
+              Write a program to define MDT and output of Macro processor
             </button>
           </h2>
           <div
@@ -2041,6 +2041,231 @@ void main()
 
                </pre>
              </h5>
+            </div>
+          </div>
+        </div>
+
+        <!-- MDT mnt ala -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTenth">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTenth"
+              aria-expanded="false"
+              aria-controls="collapseTenth"
+            >
+              Write a program to define MDT, MNT and ALA data structure of Macro processor 
+            </button>
+          </h2>
+          <div
+            id="collapseTenth"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingTenth"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+            <h5>
+              <pre>
+
+import java.util.*;
+import java.io.*;
+class MDT {
+    int index;
+    String def;
+    MDT(int i, String a) {
+        this.index = i;
+        this.def = a;
+    }
+}
+class MNT {
+    int index,mdtind;
+    String name;
+    Vector<String> ala;
+    MNT(int i, String a, int ind, Vector<String> b) {
+        this.index = i;
+        this.name = a;
+        this.mdtind = ind;
+        this.ala = b;
+    }
+}
+class Main {
+    public static int searchmnt(Vector<MNT> a, String b) {
+        int i,pos = -1;
+        for(i = 0; i < a.size(); i++) {
+            MNT x = a.get(i);
+            if(x.name.equals(b)) { pos = i; break; }
+        }
+        return pos;
+    }
+    public static void main(String[] args) throws Exception {
+        BufferedReader r = new BufferedReader(new FileReader("input.txt"));
+        BufferedReader r1 = new BufferedReader(new InputStreamReader(System.in));
+        Vector<MDT> mdt = new Vector<MDT>();
+        Vector<MNT> mnt = new Vector<MNT>();
+        Vector<String> isc = new Vector<String>();
+        String d;
+        boolean flag = false;
+        /* PASS 1 */
+        while((d = r.readLine()) != null) {
+            d = d.trim();
+            if(d.isEmpty()) continue;
+            String temp[] = d.split("\\s+");
+            if(d.contains("MACRO")) flag = true; //start entering into MDT
+            if(flag) {
+                d = r.readLine(); 
+                String t[] = d.split("\\s+");
+                String t1[] = t[1].split("\\,");
+                Vector<String> arg = new Vector<String>();
+                for(int i = 0; i < t1.length; i++) {
+                    String p = t1[i];
+                    if(t1[i].contains("=")) p = t1[i].substring(0,t1[i].indexOf('='));
+                    arg.addElement(p);
+                }
+                mnt.addElement(new MNT(mnt.size() + 1, t[0], mdt.size() + 1, arg));
+                mdt.addElement(new MDT(mdt.size() + 1, d));
+                d = r.readLine();
+                while(!d.equals("MEND")) {
+                    if(d.contains("&")) {
+                        int i = d.indexOf('&');
+                        MNT h = mnt.get(mnt.size() - 1);
+                        int j;
+                        for(j = 0; j < h.ala.size(); j++) {
+                            if(d.substring(i).equals(h.ala.get(j)))
+                                break;
+                        }
+                        mdt.addElement(new MDT(mdt.size() + 1, d.substring(0,i)+"#"+(j+1)));
+                    }
+                    else mdt.addElement(new MDT(mdt.size() + 1, d));
+                    d = r.readLine();
+                }
+                if(d.equals("MEND")) mdt.addElement(new MDT(mdt.size() + 1, d));
+                flag = false;
+            }
+            else {
+                isc.addElement(d);
+            }
+        }
+        System.out.println("\nPASS 1\n");
+        System.out.println("MDT");
+        for(int i = 0; i < mdt.size(); i++) {
+            MDT t = mdt.get(i);
+            System.out.println(t.index+" "+t.def);
+        }
+        System.out.println("\nMNT");
+        for(int i = 0; i < mnt.size(); i++) {
+            MNT t = mnt.get(i);
+            System.out.print(t.index+" "+t.name+" "+t.mdtind+"\tALA: ");
+            for(int j = 0; j < t.ala.size(); j++) {
+                System.out.print(t.ala.get(j)+" ");
+            } 
+            System.out.println();
+        }
+            }
+}
+
+              </pre>
+            </h5>
+            </div>
+          </div>
+        </div>
+
+        <!-- MDT and output of the macro -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingEleventh">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseEleventh"
+              aria-expanded="false"
+              aria-controls="collapseEleventh"
+            >
+               Write a program to define MDT ,and output of Macro processor 
+            </button>
+          </h2>
+          <div
+            id="collapseEleventh"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingEleventh"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+            <h5>
+              <pre>
+<!-- #include<stdio.h>
+#include<conio.h>
+#include<ctype.h>
+#include<string.h> -->
+int m=0,i,j,flag=0;
+char c,*s1,*s2,*s3,*s4,str[50]=" ",str1[50]=" ";
+char mac[10][10];
+void main()
+{
+FILE *fpm=fopen("macro.txt","r");
+FILE *fpi=fopen("minput.txt","r");
+FILE *fpo=fopen("moutput.txt","w");
+while(!feof(fpm))
+{
+fgets(str,50,fpm);
+s1=strtok(str," ");
+s2=strtok(NULL," ");
+if(strcmp(s1,"MACRO")==0)
+{
+strcpy(mac[m],s2);
+m++;
+}
+s1=s2=NULL;
+}
+fgets(str,50,fpi);
+while(!feof(fpi))
+{
+flag=0;
+strcpy(str1,str);
+for(i=0;i<m;i++)
+{
+if(strcmp(str1,mac[i])==0)
+{
+rewind(fpm);
+while(!feof(fpm))
+{
+fgets(str,50,fpm);
+s2=strtok(str," ");
+s3=strtok(NULL," ");
+if(strcmp(s2,"MACRO")==0&&strcmp(s3,str1)==0)
+{
+fgets(str,50,fpm);
+strncpy(s4,str,4);
+s4[4]='\0';
+while(strcmp(s4,"MEND")!=0)
+{
+fprintf(fpo,"%s",str);
+printf("\n####%s",str);
+fgets(str,50,fpm);
+strncpy(s4,str,4);
+s4[4]='\0';
+}
+}
+}
+flag=1;
+break;
+}
+}
+if(flag==0)
+{
+fprintf(fpo,"%s",str);
+printf("%s",str);
+}
+fgets(str,50,fpi);
+}
+fclose(fpm);
+fclose(fpi);
+fclose(fpo);
+getch();
+}
+              </pre>
+            </h5>
             </div>
           </div>
         </div>
