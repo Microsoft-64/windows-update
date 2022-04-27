@@ -524,6 +524,432 @@ int main(int argc, char *argv[])
             </div>
           </div>
         </div>
+
+        <!-- ICG in java -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSixth">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseSixth"
+              aria-expanded="false"
+              aria-controls="collapseSixth"
+            >
+              ICG in Java
+            </button>
+          </h2>
+          <div
+            id="collapseSixth"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingSixth"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <h5><pre>
+package Demo;
+
+import java.util.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+		public class Assembly{
+		   
+		    public static void main(String[] args) throws IOException {
+
+		        FileWriter fw = null;
+		        BufferedWriter bw = null;
+		        PrintWriter pw = null;
+
+		        try {
+		            fw = new FileWriter("ICG1.txt", true);
+		            bw = new BufferedWriter(fw);
+		            pw = new PrintWriter(bw);
+
+		     Scanner sc =new Scanner(System.in);
+		     System.out.println("Enter the expression:");
+		     String a = sc.next();
+
+		     String s = null;
+		     int x = 0;
+		     pw.println("\nop\targ1\targ2\tres\n");
+
+		for(int i = 0; i < a.length(); i++)
+		     {
+		        if (a.charAt(i) == '=' && a.charAt(i+1)=='-' )
+		        {
+		            pw.println('-'+"\t"+a.charAt(i+2)+"\t-"+"\tU");
+		            char s3 = a.charAt(i+1);
+		            char s4 = a.charAt(i+2);
+		            s = String.valueOf(s3)+String.valueOf(s4);
+		            a=a.replace(s,"U");
+		        }
+		     }
+		for(int i = 0; i < a.length(); i++)
+		     {
+		         char c = a.charAt(i);
+		        try {
+		         if (c == '/' && a.charAt(i+1)=='-' && a.charAt(i+2)=='t' && Character.isDigit(a.charAt(i+3))==true ){
+		            pw.println('-'+"\t"+'t'+a.charAt(i+3)+"\t-"+"\tU");
+		             char s3 = a.charAt(i+1);
+		             char s4 = a.charAt(i+2);
+		             char s5 = a.charAt(i+3);
+		             s = String.valueOf(s3)+String.valueOf(s4)+String.valueOf(s5);
+		             a=a.replace(s,"U");
+		             
+		         }
+
+		         if(c == '/' && a.charAt(i+1)=='-' && a.charAt(i+2)!='t' && Character.isDigit(a.charAt(i+3))==false){
+		            pw.println('-'+"\t"+a.charAt(i+2)+"\t-"+"\tU");
+		             char s3 = a.charAt(i+1);
+		             char s4 = a.charAt(i+2);
+		             s = String.valueOf(s3)+String.valueOf(s4);
+		             a=a.replace(s,"U");
+		             
+		         }
+		        }
+		        catch(Exception e1){}
+
+
+		         if (c == '/')
+		         {
+		         char st=a.charAt(i-1);
+		            if(a.charAt(i-2)=='t' && Character.isDigit(st)==true  && a.charAt(i+1)=='t' && Character.isDigit(i+1)==true){
+		                if(Character.isDigit(a.charAt(i+2))==true)
+		                    pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+
+		             char s0 = a.charAt(i-2);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             char s4 = a.charAt(i+2);
+		                
+		             s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		            }
+
+		            else if(a.charAt(i-2)=='t' && Character.isDigit(st)==true && a.charAt(i+1)!='t' ){
+		                pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		                char s0 = a.charAt(i-2);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		            }
+
+		            else if(a.charAt(i+1)=='t' && Character.isDigit(a.charAt(i+2))==true && a.charAt(i-2)!='t' && Character.isDigit(st)==false ){
+		                pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		            }
+
+		            else{
+		             pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		            }		            
+		         
+		        }
+		     }
+		     
+		for(int i = 0; i < a.length(); i++)
+		     {
+		         char c = a.charAt(i);
+
+
+
+
+		         try {
+		            if (c == '*' && a.charAt(i+1)=='-' && a.charAt(i+2)=='t' && Character.isDigit(a.charAt(i+3))==true ){
+		               pw.println('-'+"\t"+'t'+a.charAt(i+3)+"\t-"+"\tU");
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                char s5 = a.charAt(i+3);
+		                s = String.valueOf(s3)+String.valueOf(s4)+String.valueOf(s5);
+		                a=a.replace(s,"U");
+		                //pw.println(a);
+		            }
+		   
+		            if(c == '*' && a.charAt(i+1)=='-' && a.charAt(i+2)!='t' && Character.isDigit(a.charAt(i+3))==false){
+		               pw.println('-'+"\t"+a.charAt(i+2)+"\t-"+"\tU");
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                s = String.valueOf(s3)+String.valueOf(s4);
+		                a=a.replace(s,"U");
+		                //pw.println(a);
+		            }
+		           }
+		           catch(Exception e1){}
+		   
+
+
+		         if (c == '*')
+		         {
+		            char st=a.charAt(i-1);
+		            if(a.charAt(i-2)=='t' && Character.isDigit(st)==true  && a.charAt(i+1)=='t' ){
+		                if(Character.isDigit(a.charAt(i+2))==true)
+		                    pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+
+		             char s0 = a.charAt(i-2);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             char s4 = a.charAt(i+2);
+		                
+		             s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		            }
+
+		            else if(a.charAt(i-2)=='t' && Character.isDigit(st)==true && a.charAt(i+1)!='t' ){
+		                pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		                char s0 = a.charAt(i-2);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		            }
+
+		            else if(a.charAt(i+1)=='t' && Character.isDigit(a.charAt(i+2))==true && a.charAt(i-2)!='t' && Character.isDigit(st)==false ){
+		                pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		            }
+
+		            else{
+		             pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		            }
+		            
+		         }
+		         
+		     }
+		     
+		for(int i = 0; i < a.length(); i++)
+		     {
+		         char c = a.charAt(i);
+
+		         
+		         try {
+		            if (c == '+' && a.charAt(i+1)=='-' && a.charAt(i+2)=='t' && Character.isDigit(a.charAt(i+3))==true ){
+		               pw.println('-'+"\t"+'t'+a.charAt(i+3)+"\t-"+"\tU");
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                char s5 = a.charAt(i+3);
+		                s = String.valueOf(s3)+String.valueOf(s4)+String.valueOf(s5);
+		                a=a.replace(s,"U");
+		                
+		               
+		            }
+		   
+		            if(c == '+' && a.charAt(i+1)=='-' && a.charAt(i+2)!='t' && Character.isDigit(a.charAt(i+3))==false){
+		               pw.println('-'+"\t"+a.charAt(i+2)+"\t-"+"\tU");
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                s = String.valueOf(s3)+String.valueOf(s4);
+		                a=a.replace(s,"U");
+		                
+		                
+		            }
+		           }
+		           catch(Exception e1){}
+		   
+
+
+
+		         if (c == '+')
+		         {
+		            char st=a.charAt(i-1);
+		            if(a.charAt(i-2)=='t' && Character.isDigit(st)==true  && a.charAt(i+1)=='t' ){
+		                if(Character.isDigit(a.charAt(i+2))==true)
+		                    pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+
+		             char s0 = a.charAt(i-2);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             char s4 = a.charAt(i+2);
+		                
+		             s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		             i=2;
+		            }
+
+		            else if(a.charAt(i-2)=='t' && Character.isDigit(st)==true && a.charAt(i+1)!='t' ){
+		                pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		                char s0 = a.charAt(i-2);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		                i=2;
+		            }
+
+		            else if(a.charAt(i+1)=='t' && Character.isDigit(a.charAt(i+2))==true && a.charAt(i-2)!='t' && Character.isDigit(st)==false ){
+		                pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		                i=2;
+		            }
+
+		            else{
+		             pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		             i=2;
+		            }
+		            
+		             
+		         }
+		         
+		     }
+		     
+		for(int i = 0; i < a.length(); i++)
+		     {
+		         char c = a.charAt(i);
+
+
+		         
+
+		         try {
+		            if (c == '-' && a.charAt(i+1)=='-' && a.charAt(i+2)=='t' && Character.isDigit(a.charAt(i+3))==true ){
+		               pw.println('-'+"\t"+'t'+a.charAt(i+3)+"\t-"+"\tU");
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                char s5 = a.charAt(i+3);
+		                s = String.valueOf(s3)+String.valueOf(s4)+String.valueOf(s5);
+		                a=a.replace(s,"U");
+		                
+		            }
+		   
+		            if(c == '-' && a.charAt(i+1)=='-' && a.charAt(i+2)!='t' && Character.isDigit(a.charAt(i+3))==false){
+		               pw.println('-'+"\t"+a.charAt(i+2)+"\t-"+"\tU");
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                s = String.valueOf(s3)+String.valueOf(s4);
+		                a=a.replace(s,"U");
+		                
+		            }
+		           }
+		           catch(Exception e1){}
+		   
+
+
+		         if (c == '-')
+		         {
+		            char st=a.charAt(i-1);
+		            if(a.charAt(i-2)=='t' && Character.isDigit(st)==true  && a.charAt(i+1)=='t' ){
+		                if(Character.isDigit(a.charAt(i+2))==true)
+		                    pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+
+		             char s0 = a.charAt(i-2);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             char s4 = a.charAt(i+2);
+		                
+		             s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		            }
+
+		            else if(a.charAt(i-2)=='t' && Character.isDigit(st)==true && a.charAt(i+1)!='t' ){
+		                pw.println(c+"\t"+a.charAt(i-2)+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		                char s0 = a.charAt(i-2);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                s = String.valueOf(s0)+String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		            }
+
+		            else if(a.charAt(i+1)=='t' && Character.isDigit(a.charAt(i+2))==true && a.charAt(i-2)!='t' && Character.isDigit(st)==false ){
+		                pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+a.charAt(i+2)+"\tt"+x);
+		                char s1 = a.charAt(i-1);
+		                char s2 = a.charAt(i);
+		                char s3 = a.charAt(i+1);
+		                char s4 = a.charAt(i+2);
+		                s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3)+String.valueOf(s4);
+		                a=a.replace(s,"t"+x);
+		                x++;
+		            }
+
+		            else{
+		             pw.println(c+"\t"+a.charAt(i-1)+"\t"+a.charAt(i+1)+"\tt"+x);
+		             char s1 = a.charAt(i-1);
+		             char s2 = a.charAt(i);
+		             char s3 = a.charAt(i+1);
+		             s = String.valueOf(s1)+String.valueOf(s2)+String.valueOf(s3);
+		             a=a.replace(s,"t"+x);
+		             x++;
+		            }
+		            
+		         }   
+		     }
+
+		    if (a.charAt(1) == '='){
+		        pw.println('='+"\t"+a.charAt(0)+"\t"+"-\t"+a.charAt(2)+a.charAt(3));
+
+		     }
+
+		     pw.flush();
+
+		        } finally {
+		            try {
+		                pw.close();
+		                bw.close();
+		                fw.close();
+		            } catch (IOException io) { 
+		            }
+
+		        }
+		    	       
+		}		
+	}
+              </pre></h5>
+              </pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
