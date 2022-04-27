@@ -38,11 +38,6 @@
             <div class="accordion-body">
               <h5>
                   <pre>
-<!-- #include<pre>stdio.h></pre>
-#include<p><stdlib.h></p>
-#include<p><string.h></p>
-#include<p><ctype.h></p> -->
- 
 int isKeyword(char buffer[]){
 char keywords[32][10] = {"auto","break","case","char","const","continue","default",
 "do","double","else","enum","extern","float","for","goto",
@@ -69,7 +64,7 @@ printf("error while opening the file\n");
 exit(0);
 }
 while((ch = fgetc(fp)) != EOF){
-   for(i = 0; i <code 6; ++i){
+   for(i = 0; i < 6; ++i){
    if(ch == operators[i])
    printf("%c is operator\n", ch);
    }
